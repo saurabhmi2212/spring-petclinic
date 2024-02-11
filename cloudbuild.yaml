@@ -24,7 +24,7 @@ steps:
       - KUBECONFIG=/workspace/.kube/config
 
   # Set up Helm and deploy the application
-  - name: 'gcr.io/$PROJECT_ID/cloud-builders-helm'
+  - name: 'gcr.io/$PROJECT_ID/helm'
     args:
       - 'upgrade'
       - '--install'
