@@ -24,7 +24,12 @@ steps:
       - KUBECONFIG=/workspace/.kube/config
 
   # Testing kubectl connectivity
-  - name: gcr.io/cloud-builders/kubectl
-    id: Test kubectl
-    args:
-      - get ns
+  - name: 'gcr.io/cloud-builders/gcloud'
+  id: Testing
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - |  
+         kubectl get ns
+         kubectl get no
+
