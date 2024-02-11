@@ -6,11 +6,11 @@ steps:
     
   # # Build the Docker image of the microservice
   # - name: 'gcr.io/cloud-builders/docker'
-  #   args: ['build', '-t', 'asia-south1-docker.pkg.dev/$PROJECT_ID/petclinic-app-repo/petclinic:$COMMIT_SHA', './workspace/spring-petclinic']
+  #   args: ['build', '-t', 'asia-south1-docker.pkg.dev/$PROJECT_ID/petclinic-app-repo/petclinic:$SHORT_SHA', './workspace/spring-petclinic']
   
   # # Push the Docker image to the container registry
   # - name: 'gcr.io/cloud-builders/docker'
-  #   args: ['push', 'asia-south1-docker.pkg.dev/$PROJECT_ID/petclinic-app-repo/petclinic:$COMMIT_SHA']  
+  #   args: ['push', 'asia-south1-docker.pkg.dev/$PROJECT_ID/petclinic-app-repo/petclinic:$SHORT_SHA']  
 
   # Set up kubectl
   - name: gcr.io/cloud-builders/kubectl
@@ -24,12 +24,14 @@ steps:
       - KUBECONFIG=/workspace/.kube/config
 
   # Testing kubectl connectivity
-  - name: 'gcr.io/cloud-builders/gcloud'
+  - name: gcr.io/cloud-builders/kubectl
     id: Testing
-    entrypoint: 'bash'
     args:
-      - '-c'
-      - |  
-           kubectl get ns
-           kubectl get no
+      - get ns
+    env:
+      - 'PROJECT=halogen-byte-388404'
+      - 'CLOUDSDK_COMPUTE_REGION=asia-south1'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=petclinic-cluster'
+      - KUBECONFIG=/workspace/.kube/config
+  
 
