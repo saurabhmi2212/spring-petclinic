@@ -23,15 +23,18 @@ steps:
       - 'CLOUDSDK_CONTAINER_CLUSTER=petclinic-cluster'
       - KUBECONFIG=/workspace/.kube/config
 
-  # Testing kubectl connectivity
-  - name: gcr.io/cloud-builders/kubectl
-    id: Testing
+  # Set up Helm and deploy the application
+  - name: 'gcr.io/cloud-builders/helm'
     args:
-      - get ns
+      - 'upgrade'
+      - '--install'
+      - 'petclinic'
+      - './deployment-chart/petclinic-chart'
+      - '--set=image.tag=$COMMIT_SHA'
+      - '--namespace=petclinic'
+      - '--wait'
     env:
-      - 'PROJECT=halogen-byte-388404'
-      - 'CLOUDSDK_COMPUTE_REGION=asia-south1'
+      - 'HELM_HOME=/workspace/'
+      - 'KUBECONFIG=/workspace/.kube/config'
+      - 'CLOUDSDK_COMPUTE_ZONE=asia-south1'
       - 'CLOUDSDK_CONTAINER_CLUSTER=petclinic-cluster'
-      - KUBECONFIG=/workspace/.kube/config
-  
-
