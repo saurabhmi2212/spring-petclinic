@@ -25,6 +25,6 @@ steps:
 
   # Testing kubectl connectivity
   - name: gcr.io/cloud-builders/kubectl
-    id: Configure kubectl
+    id: Test kubectl
     args:
       - get ns
