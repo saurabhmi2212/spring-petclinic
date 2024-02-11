@@ -24,17 +24,11 @@ steps:
       - KUBECONFIG=/workspace/.kube/config
 
   # Set up Helm and deploy the application
-  - name: 'gcr.io/$PROJECT_ID/helm'
+    # This step generates the new manifest
+  - name: 'gcr.io/cloud-builders/gcloud'
+    id: Generate manifest
+    entrypoint: /bin/sh
     args:
-      - 'upgrade'
-      - '--install'
-      - 'petclinic'
-      - './deployment-chart/petclinic-chart'
-      - '--set=image.tag=$COMMIT_SHA'
-      - '--namespace=petclinic'
-      - '--wait'
-    env:
-      - 'HELM_HOME=/workspace/'
-      - 'KUBECONFIG=/workspace/.kube/config'
-      - 'CLOUDSDK_COMPUTE_ZONE=asia-south1'
-      - 'CLOUDSDK_CONTAINER_CLUSTER=petclinic-cluster'
+      - '-c'
+      - |
+         echo "this is the testing deployment"
