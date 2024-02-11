@@ -1,13 +1,30 @@
 steps:
-  # Clone the repository
-  - name: 'gcr.io/cloud-builders/git'
-    args: ['clone', 'https://github.com/saurabhmi2212/spring-petclinic.git']
-    dir: 'workspace'
+  # # Clone the repository
+  # - name: 'gcr.io/cloud-builders/git'
+  #   args: ['clone', 'https://github.com/saurabhmi2212/spring-petclinic.git']
+  #   dir: 'workspace'
     
-  # Build the Docker image of the microservice
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'asia-south1-docker.pkg.dev/halogen-byte-388404/petclinic-app-repo/petclinic:$COMMIT_SHA', './workspace/spring-petclinic']
+  # # Build the Docker image of the microservice
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   args: ['build', '-t', 'asia-south1-docker.pkg.dev/$PROJECT_ID/petclinic-app-repo/petclinic:$COMMIT_SHA', './workspace/spring-petclinic']
   
-  # Push the Docker image to the container registry
-  - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'asia-south1-docker.pkg.dev/halogen-byte-388404/petclinic-app-repo/petclinic:$COMMIT_SHA']      
+  # # Push the Docker image to the container registry
+  # - name: 'gcr.io/cloud-builders/docker'
+  #   args: ['push', 'asia-south1-docker.pkg.dev/$PROJECT_ID/petclinic-app-repo/petclinic:$COMMIT_SHA']  
+
+  # Set up kubectl
+  - name: gcr.io/cloud-builders/kubectl
+    id: Configure kubectl
+    args:
+      - cluster-info
+    env:
+      - 'PROJECT=halogen-byte-388404'
+      - 'CLOUDSDK_COMPUTE_REGION=asia-south1'
+      - 'CLOUDSDK_CONTAINER_CLUSTER=petclinic-cluster'
+      - KUBECONFIG=/workspace/.kube/config
+
+  # Testing kubectl connectivity
+  - name: gcr.io/cloud-builders/kubectl
+    id: Configure kubectl
+    args:
+      - get ns
