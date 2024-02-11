@@ -37,7 +37,7 @@ steps:
          apt-get update
          apt-get install helm
          helm upgrade --install petclinic ./deployment-chart/petclinic-chart --namespace=petclinic --wait
-     env:
+    env:
       - 'HELM_HOME=/workspace/'
       - 'KUBECONFIG=/workspace/.kube/config'
       - 'CLOUDSDK_COMPUTE_ZONE=asia-south1'
