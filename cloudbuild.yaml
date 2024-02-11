@@ -31,4 +31,4 @@ steps:
     args:
       - '-c'
       - |
-         echo "this is the testing deployment"
+         apt-get install helm -y
