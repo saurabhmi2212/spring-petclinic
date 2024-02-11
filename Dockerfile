@@ -4,7 +4,7 @@ WORKDIR /app
 
 COPY ./app-source/ .
 
-OPY .mvn/ .mvn
+COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
 RUN ./mvnw dependency:resolve
 
