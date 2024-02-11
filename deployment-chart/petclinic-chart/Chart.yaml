@@ -1,0 +1,6 @@
+apiVersion: v2
+name: petclinic-chart
+description: Deployment helm chart for petclinic application
+type: application
+version: 0.1.0
+appVersion: "1.16.0"
