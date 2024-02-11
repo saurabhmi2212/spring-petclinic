@@ -25,11 +25,11 @@ steps:
 
   # Testing kubectl connectivity
   - name: 'gcr.io/cloud-builders/gcloud'
-  id: Testing
-  entrypoint: 'bash'
-  args:
-    - '-c'
-    - |  
-         kubectl get ns
-         kubectl get no
+    id: Testing
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |  
+           kubectl get ns
+           kubectl get no
 
