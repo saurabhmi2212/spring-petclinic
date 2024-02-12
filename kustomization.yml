@@ -1,5 +1,0 @@
-resources:
-- deployment-manifests/deployment.yml
-- deployment-manifests/service.yml
-- deployment-manifests/hpa.yml
-- deployment-manifests/ingress.yml
