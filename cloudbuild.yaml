@@ -31,7 +31,7 @@ steps:
     args:
       - '-c'
       - |
-        kubectl kustomize 
+        kubectl apply -f ./deployment-manifests
     env:
       - 'KUBECONFIG=/workspace/.kube/config'
       - 'CLOUDSDK_COMPUTE_ZONE=asia-south1'
