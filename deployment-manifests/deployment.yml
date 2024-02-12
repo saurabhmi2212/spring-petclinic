@@ -13,7 +13,7 @@ spec:
         app: petclinic 
     spec:
       containers:
-      - image: asia-south1-docker.pkg.dev/halogen-byte-388404/petclinic-app-repo/petclinic:v1
+      - image: asia-south1-docker.pkg.dev/halogen-byte-388404/petclinic-app-repo/petclinic:IMAGE_TAG
         imagePullPolicy: IfNotPresent
         name: petclinic-image
         ports:

@@ -1,16 +1,16 @@
 steps:
-  # # Clone the repository
-  # - name: 'gcr.io/cloud-builders/git'
-  #   args: ['clone', 'https://github.com/saurabhmi2212/spring-petclinic.git']
-  #   dir: 'workspace'
+  # Clone the repository
+  - name: 'gcr.io/cloud-builders/git'
+    args: ['clone', 'https://github.com/saurabhmi2212/spring-petclinic.git']
+    dir: 'workspace'
     
-  # # Build the Docker image of the microservice
-  # - name: 'gcr.io/cloud-builders/docker'
-  #   args: ['build', '-t', 'asia-south1-docker.pkg.dev/$PROJECT_ID/petclinic-app-repo/petclinic:$SHORT_SHA', './workspace/spring-petclinic']
+  # Build the Docker image of the microservice
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', 'asia-south1-docker.pkg.dev/$PROJECT_ID/petclinic-app-repo/petclinic:$SHORT_SHA', './workspace/spring-petclinic']
   
-  # # Push the Docker image to the container registry
-  # - name: 'gcr.io/cloud-builders/docker'
-  #   args: ['push', 'asia-south1-docker.pkg.dev/$PROJECT_ID/petclinic-app-repo/petclinic:$SHORT_SHA']  
+  # Push the Docker image to the container registry
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'asia-south1-docker.pkg.dev/$PROJECT_ID/petclinic-app-repo/petclinic:$SHORT_SHA']  
 
   # Set up kubectl
   - name: gcr.io/cloud-builders/kubectl
@@ -23,14 +23,14 @@ steps:
       - 'CLOUDSDK_CONTAINER_CLUSTER=petclinic-cluster'
       - KUBECONFIG=/workspace/.kube/config
 
-  # Set up Helm and deploy the application
-    # This step generates the new manifest
+  # Replace & deploy the latest version of container image
   - name: 'gcr.io/cloud-builders/gcloud'
     id: deploy 
     entrypoint: /bin/sh
     args:
       - '-c'
       - |
+        sed -i 's/IMAGE_TAG/$SHORT_SHA/g' ./deployment-manifests/deployment.yml
         kubectl apply -f ./deployment-manifests
     env:
       - 'KUBECONFIG=/workspace/.kube/config'
