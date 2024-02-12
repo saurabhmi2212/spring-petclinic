@@ -28,6 +28,12 @@
       - hpa.yaml
       - ingress.yaml
       - service.yaml
+
+  # Automatic Deployment
+  
+
+  The configured Cloud Build trigger will automatically build and deploy your Spring PetClinic application whenever changes are pushed to the repository.
+  
   
 
 
