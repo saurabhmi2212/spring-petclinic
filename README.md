@@ -32,7 +32,7 @@
   # Automatic Deployment
   
 
-  The configured Cloud Build trigger will automatically build and deploy your Spring PetClinic application whenever changes are pushed to the repository.
+The configured Cloud Build trigger will automatically build and deploy your Spring PetClinic application whenever changes are pushed to the petclinic repository 
   
   
 
